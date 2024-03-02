@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SignalR.Data;
 using SignalR.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//add connection string
+builder.Services.AddDbContext<ApplicationDbContext>
+    (options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
 builder.Services.AddSignalR();
 

@@ -17,7 +17,10 @@ namespace SignalR.Controllers
         {
             return View();
         }
-
+        public IActionResult User()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
