@@ -1,24 +1,53 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<User>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Table</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.10/signalr.min.js"></script>
+</head>
+<body >
+    <h2>User Table</h2>
 
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-            Total Views:
-        </div>
-        <span id="totalViewsCounter"></span>
-    </div>
-    <div class="row">
-        <div class="col-3">
-            Total Users Connected:
-        </div>
-        <span id="totalUsersCounter"></span>
-    </div>
-</div>
+    <table border="1" id="userTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.ID</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    
+                    <td>
+                        <button type="submit" class="editUserBtn" data-id="@user.ID">Edit</button>
+                        <button type="submit" class="deleteUserBtn" data-id="@user.ID">Delete</button>
+                    
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Add User</h2>
+
+    @* <form method="post" asp-action="AddUser" asp-controller="Home"> *@
+        <label for="userName">User Name:</label>
+        <input type="text" name="userName"  required />
+
+        <label for="email">Email:</label>
+        <input type="email" name="email"  required />
+
+        <button type="submit" id="addUserBtn">Add User</button>
+    @* </form> *@
+</body>
+</html>
 <script src="~/js/signalr.js"></script>
-<script src="~/js/usersCount.js"></script>
+<script src="~/js/userAdd.js"></script>
