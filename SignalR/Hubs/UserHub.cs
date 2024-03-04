@@ -16,6 +16,13 @@ namespace SignalR.Hubs
             _db = db;
             
         }
+
+        public async Task SendUserSignUpData(User userData)
+        {
+            // Process and use the userData as needed
+            // Broadcast the data to all connected clients (admin panel)
+            await Clients.All.SendAsync("updateUsers", await GetAllUsers());
+        }
         public async Task NewWindowLoaded()
         {
             TotalViews++;

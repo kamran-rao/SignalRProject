@@ -13,6 +13,16 @@ builder.Services.AddDbContext<ApplicationDbContext>
 
 builder.Services.AddSignalR();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +43,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseCors("AllowAll");
 app.MapHub<UserHub>("/hubs/userCount");
 app.MapHub<UserHub>("/hubs/userAdd");
+
 app.Run();

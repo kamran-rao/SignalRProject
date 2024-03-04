@@ -24,6 +24,30 @@ connectionUserCount.on("updateUsers", (users) => {
 
 });
 
+//custom
+connectionUserCount.on("ReceiveUserSignUpData", (users) => {
+    const userTable = document.getElementById("userTable").getElementsByTagName('tbody')[0];
+    userTable.innerHTML = "";
+
+    users.forEach(user => {
+        const row = userTable.insertRow(-1);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        cell1.innerHTML = user.id;
+        cell2.innerHTML = user.userName;
+        cell3.innerHTML = user.email;
+
+        const buttonsCell = row.insertCell(3);
+        buttonsCell.innerHTML = `
+            <button type="submit" class="editUserBtn" data-id="${user.id}">Edit</button>
+            <button type="submit" class="deleteUserBtn" data-id="${user.id}">Delete</button>
+            
+        `;
+    });
+
+});
+
 document.getElementById("addUserBtn").addEventListener("click", function (event) {
     event.preventDefault(); // Prevent the default form submission
 
